@@ -7,20 +7,43 @@ import APIError from '../helpers/APIError';
  * User Schema
  */
 const UserSchema = new mongoose.Schema({
-  username: {
+  email: {
     type: String,
     required: true
   },
-  mobileNumber: {
+  name: {
     type: String,
-    required: true,
-    match: [/^[1-9][0-9]{9}$/, 'The value of path {PATH} ({VALUE}) is not a valid mobile number.']
+    required: true
+  },
+  age: {
+    type: Number,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  sexualPreference: {
+    type: Number,
+    required: true
+  },
+  gender: {
+    type: Number,
+    required: true
   },
   createdAt: {
     type: Date,
     default: Date.now
   }
 });
+
+// Use for sexualPreference and gender
+var gender = {
+  FEMALE: 0,
+  MALE: 1,
+  NA: 2
+};
+
 
 /**
  * Add your
