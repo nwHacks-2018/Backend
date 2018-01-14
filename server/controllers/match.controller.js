@@ -5,12 +5,6 @@ import config from '../../config/config';
 
 import User from '../models/user.model.js';
 
-// sample user, used for authentication
-const user = {
-  username: 'react',
-  password: 'express'
-};
-
 /**
  * Returns jwt token if valid username and password is provided
  * @param req
@@ -18,7 +12,7 @@ const user = {
  * @param next
  * @returns {*}
  */
-function login(req, res, next) {
+function next(req, res, next) {
   // Ideally you'll fetch this from the db
   // Idea here was to show how jwt works with simplicity
 
@@ -35,36 +29,6 @@ function login(req, res, next) {
       });
 
     }
-
-  });
-
-  const err = new APIError('Authentication error', httpStatus.UNAUTHORIZED, true);
-  return next(err);
-}
-
-/**
- * Returns jwt token if valid username and password is provided
- * @param req
- * @param res
- * @param next
- * @returns {*}
- */
-function signup(req, res, next) {
-  // Ideally you'll fetch this from the db
-  // Idea here was to show how jwt works with simplicity
-
-  User.create({ name: req.body.name, email: req.body.email, age: req.body.age, password: req.body.password, sexualPreference: req.body.sexualPreference, gender: req.body.gender }, function (err, user) {
-
-    const token = jwt.sign({
-      name: user.name
-    }, config.jwtSecret);
-    return res.json({
-      token,
-      name: user.name
-    });
-
-    if (err) return new APIError('Authentication error', httpStatus.UNAUTHORIZED, true);
-    // saved!
 
   });
 

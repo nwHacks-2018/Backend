@@ -5,6 +5,7 @@ export default {
   createUser: {
     body: {
       username: Joi.string().required(),
+      password: JOI.string().required(),
       mobileNumber: Joi.string().regex(/^[1-9][0-9]{9}$/).required()
     }
   },
@@ -22,6 +23,13 @@ export default {
 
   // POST /api/auth/login
   login: {
+    body: {
+      username: Joi.string().required(),
+      password: Joi.string().required()
+    }
+  },
+
+  signup: {
     body: {
       username: Joi.string().required(),
       password: Joi.string().required()
