@@ -22,16 +22,16 @@ function login(req, res, next) {
   // Ideally you'll fetch this from the db
   // Idea here was to show how jwt works with simplicity
 
-  User.findOne({name: req.body.name, password: req.body.password}, function (err, user) {
+  User.findOne({email: req.body.email, password: req.body.password}, function (err, user) {
 
-    if (req.body.name === user.name && req.body.password === user.password) {
+    if (req.body.email === user.email && req.body.password === user.password) {
 
       const token = jwt.sign({
-        name: user.name
+        data: user
       }, config.jwtSecret);
       return res.json({
         token,
-        name: user.name
+        email: user.email
       });
 
     }
@@ -56,14 +56,14 @@ function signup(req, res, next) {
   User.create({ name: req.body.name, email: req.body.email, age: req.body.age, password: req.body.password, sexualPreference: req.body.sexualPreference, gender: req.body.gender }, function (err, user) {
 
     const token = jwt.sign({
-      name: user.name
+      data: user
     }, config.jwtSecret);
     return res.json({
       token,
-      name: user.name
+      user: user
     });
 
-    if (err) return new APIError('Authentication error', httpStatus.UNAUTHORIZED, true);
+    if (err) return new APIError('Authentication error' + err, httpStatus.UNAUTHORIZED, true);
     // saved!
 
   });
