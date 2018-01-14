@@ -31,7 +31,7 @@ function login(req, res, next) {
       }, config.jwtSecret);
       return res.json({
         token,
-        email: user.email
+        user: user
       });
 
     }
@@ -39,7 +39,7 @@ function login(req, res, next) {
   });
 
   const err = new APIError('Authentication error', httpStatus.UNAUTHORIZED, true);
-  return next(err);
+ // return next(err);
 }
 
 /**
@@ -69,7 +69,7 @@ function signup(req, res, next) {
   });
 
   const err = new APIError('Authentication error', httpStatus.UNAUTHORIZED, true);
-  return next(err);
+  //return next(err);
 }
 
 /**
